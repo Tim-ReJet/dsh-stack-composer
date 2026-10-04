@@ -170,6 +170,15 @@ test('a negated preset phrase does not select that preset', () => {
   assert.equal(deriveIntent('a fully equipped DevOps stack').presetId, 'devops')
 })
 
+test('registry order does not change the composed stack', () => {
+  const forward = composeStack(deriveIntent('devops'), fixture.entries, { perRole: 4 })
+  const reversed = composeStack(deriveIntent('devops'), [...fixture.entries].reverse(), { perRole: 4 })
+  const shuffled = [...fixture.entries].sort(() => Math.random() - 0.5)
+  const random = composeStack(deriveIntent('devops'), shuffled, { perRole: 4 })
+  assert.equal(JSON.stringify(reversed), JSON.stringify(forward))
+  assert.equal(JSON.stringify(random), JSON.stringify(forward))
+})
+
 test('the thresholds are the documented ones', () => {
   assert.equal(FILLED_SCORE, 6)
   assert.equal(WEAK_SCORE, 3)
