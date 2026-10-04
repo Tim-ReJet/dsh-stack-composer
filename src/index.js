@@ -31,15 +31,17 @@ const COMPOSE_DESCRIPTION = [
   'category, words in its name and description, and the capability flags the registry recorded, then',
   'returns the picks per role with the signals that chose them, the capability flags the stack',
   'would hold, recorded risk notes, roles it could not fill, and one install command per plugin.',
-  'Read-only: it installs nothing. Use it when asked to assemble a stack such as a DevOps stack, a',
-  'content-creation stack, or any other set of plugins that should work together.',
+  'It installs nothing and writes only its own registry cache. Use it when asked to assemble a stack',
+  'such as a DevOps stack, a content-creation stack, or any other set of plugins that should work',
+  'together.',
 ].join(' ')
 
 const CAPABILITY_DESCRIPTION = [
   'Report what plugins can do, from the curated dsh-plugin registry: for each match, its category,',
   'description, the capability flags the registry recorded against its source (filesystem, network,',
   'shell, credentials, subprocess and similar), any red lines, its install command, and its page.',
-  'Use it to reason about the features of individual plugins before choosing a stack. Read-only.',
+  'Use it to reason about the features of individual plugins before choosing a stack. It installs',
+  'nothing.',
 ].join(' ')
 
 /**

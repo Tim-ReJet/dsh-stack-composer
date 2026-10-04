@@ -7,7 +7,8 @@ against each role using the categories, descriptions, capability flags and red l
 publishes, and returns the picks with the signals that chose them, the risks, the roles it could not
 fill, and one install command per plugin.
 
-It is read-only. It installs nothing, and it makes no network request unless it needs the registry.
+It installs nothing and changes nothing it reports on. Its only write is its own registry cache
+under the DSH home, and it makes no network request unless it needs the registry.
 
 ## What it reasons over
 
