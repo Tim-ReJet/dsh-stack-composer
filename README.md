@@ -149,7 +149,7 @@ Exit status is 0 on success and 2 on a usage error or an unreadable registry.
 
 ## Verification
 
-- `npm test` runs 35 tests on `node:test`, with no network: scoring, dedupe, gaps, risk notes,
+- `npm test` runs 36 tests on `node:test`, with no network: scoring, dedupe, gaps, risk notes,
   monorepo slugs, capability search, registry caching and offline behaviour, and the host tool seam
   from a local snapshot.
 - `npm run check:live` composes both sample stacks from the live registry and writes them to

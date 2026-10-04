@@ -266,6 +266,18 @@ export const PRESETS = {
 const GENERIC_DEFAULTS = ['scheduling-and-automation', 'asset-and-context-library', 'alerting-and-notify', 'docs-and-runbooks']
 
 /**
+ * Whether a phrase at a position in the purpose is negated, so "not a content creator" does not
+ * select the content-creation preset.
+ * @param {string} text - the lowercased purpose.
+ * @param {number} index - where the phrase begins.
+ * @returns {boolean} true when a negation immediately precedes the phrase.
+ */
+function isNegated(text, index) {
+  const before = text.slice(Math.max(0, index - 32), index)
+  return /(^|[^a-z])(not|no|never|without|avoid|instead of|rather than|other than)\s[^.;]{0,24}$/.test(before)
+}
+
+/**
  * Derive the roles a purpose needs. A purpose naming a preset takes that preset; otherwise roles
  * are chosen by how many of their keywords the purpose uses, filled out with generic roles so a
  * vague purpose still produces a stack.
@@ -282,10 +294,11 @@ export function deriveIntent(purpose, options = {}) {
   let bestMatchLength = 0
   for (const [id, preset] of Object.entries(PRESETS)) {
     for (const phrase of preset.match) {
-      if (text.includes(phrase) && phrase.length > bestMatchLength) {
-        presetId = id
-        bestMatchLength = phrase.length
-      }
+      const index = text.indexOf(phrase)
+      if (index === -1 || phrase.length <= bestMatchLength) continue
+      if (isNegated(text, index)) continue
+      presetId = id
+      bestMatchLength = phrase.length
     }
   }
 

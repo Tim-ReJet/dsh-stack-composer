@@ -163,6 +163,13 @@ test('an avoid term pushes a keyword collision out of a role', () => {
   assert.ok(collisionScore.reasons.some((reason) => reason.includes('not this role')))
 })
 
+test('a negated preset phrase does not select that preset', () => {
+  assert.equal(deriveIntent('not a content creator, just a note keeper').presetId, null)
+  assert.equal(deriveIntent('no research, just publishing drafts').presetId, null)
+  assert.equal(deriveIntent('instead of a security stack, a writing stack').presetId, null)
+  assert.equal(deriveIntent('a fully equipped DevOps stack').presetId, 'devops')
+})
+
 test('the thresholds are the documented ones', () => {
   assert.equal(FILLED_SCORE, 6)
   assert.equal(WEAK_SCORE, 3)
