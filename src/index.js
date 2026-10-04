@@ -45,17 +45,48 @@ const CAPABILITY_DESCRIPTION = [
 ].join(' ')
 
 /**
+ * Load the registry index for a call. `offline` wins over `refresh`: a deployment that forbids
+ * network access must not be talked into a fetch by a per-call flag.
+ * @param {object} settings - merged row configuration.
+ * @param {{refresh?: boolean}} call - per-call switches.
+ * @returns {Promise<object>} the registry index.
+ */
+export function resolveRegistryOptions(settings, call = {}) {
+  const offline = settings.offline === true
+  return {
+    ...(settings.registryPath ? { path: settings.registryPath } : { url: settings.registryUrl }),
+    offline,
+    ...(!offline && call.refresh === true ? { cacheTtlMs: 0 } : {}),
+  }
+}
+
+/**
  * Load the registry index for a call.
  * @param {object} settings - merged row configuration.
  * @param {{refresh?: boolean}} call - per-call switches.
  * @returns {Promise<object>} the registry index.
  */
 async function index(settings, call = {}) {
-  return loadRegistry({
-    ...(settings.registryPath ? { path: settings.registryPath } : { url: settings.registryUrl }),
-    offline: settings.offline === true && call.refresh !== true,
-    ...(call.refresh === true ? { cacheTtlMs: 0 } : {}),
-  })
+  return loadRegistry(resolveRegistryOptions(settings, call))
+}
+
+/** Bounds the tools enforce themselves, because the tool schema cannot express a range. */
+export const LIMITS = { perRole: { min: 1, max: 8 }, limit: { min: 1, max: 50 } }
+
+/**
+ * Validate a bounded integer argument.
+ * @param {number|undefined} value - the argument.
+ * @param {string} name - argument name for the message.
+ * @param {{min: number, max: number}} bounds - allowed range.
+ * @param {number} fallback - value to use when the argument is absent.
+ * @returns {number} the accepted value.
+ */
+export function boundedInteger(value, name, bounds, fallback) {
+  if (value === undefined) return fallback
+  if (!Number.isInteger(value) || value < bounds.min || value > bounds.max) {
+    throw new Error(`${name} must be an integer from ${bounds.min} to ${bounds.max}, got ${JSON.stringify(value)}`)
+  }
+  return value
 }
 
 /**
@@ -72,7 +103,7 @@ export function apply(ctx, config = {}) {
     description: COMPOSE_DESCRIPTION,
     parameters: {
       purpose: { type: 'string', required: true, description: 'What the stack is for, in your own words — for example "a fully equipped DevOps stack" or "a content creation stack for a solo YouTube channel".' },
-      perRole: { type: 'integer', description: 'How many plugins to offer per role. Defaults to the row configuration (2).' },
+      perRole: { type: 'integer', description: `How many plugins to offer per role, 1 to ${LIMITS.perRole.max}. Defaults to the row configuration (2).` },
       refresh: { type: 'boolean', description: 'Refetch the curated registry instead of using the day-old cache.' },
     },
     output: {
@@ -91,10 +122,11 @@ export function apply(ctx, config = {}) {
       render: (_args, value) => [{ type: 'text', text: value.report }],
     },
     async execute(args) {
+      const perRole = boundedInteger(args.perRole, 'perRole', LIMITS.perRole, settings.perRole)
       const registry = await index(settings, { refresh: args.refresh === true })
       const intent = deriveIntent(args.purpose)
       const stack = composeStack(intent, registry.entries, {
-        perRole: args.perRole ?? settings.perRole,
+        perRole,
         registryMeta: { count: registry.meta.count, updated: registry.meta.updated },
         source: registry.source,
       })
@@ -114,7 +146,7 @@ export function apply(ctx, config = {}) {
     description: CAPABILITY_DESCRIPTION,
     parameters: {
       query: { type: 'string', required: true, description: 'What to look for — a capability ("browser automation"), a plugin name, or a job to be done.' },
-      limit: { type: 'integer', description: 'How many matches to return. Defaults to 10.' },
+      limit: { type: 'integer', description: `How many matches to return, 1 to ${LIMITS.limit.max}. Defaults to 10.` },
       category: { type: 'string', description: 'Restrict to one registry category, such as docs, notify, or security.' },
       capability: { type: 'string', description: 'Restrict to plugins whose recorded capabilities include this flag, such as credentials or subagent.' },
     },
@@ -130,9 +162,10 @@ export function apply(ctx, config = {}) {
       render: (_args, value) => [{ type: 'text', text: value.report }],
     },
     async execute(args) {
+      const limit = boundedInteger(args.limit, 'limit', LIMITS.limit, 10)
       const registry = await index(settings)
       const matches = searchPlugins(registry.entries, args.query, {
-        limit: args.limit ?? 10,
+        limit,
         ...(args.category ? { category: args.category } : {}),
         ...(args.capability ? { capability: args.capability } : {}),
       })

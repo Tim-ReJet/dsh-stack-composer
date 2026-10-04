@@ -4,6 +4,7 @@
  * @module dsh-stack-composer/registry
  */
 
+import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { homedir } from 'node:os'
@@ -15,13 +16,26 @@ export const REGISTRY_URL = 'https://awesome-dsh-plugin.com/plugins.json'
 export const CACHE_TTL_MS = 24 * 60 * 60 * 1000
 
 /**
- * Default cache location under the DSH home.
+ * Cache location under the DSH home, keyed by the registry URL it holds. Keying by URL matters: a
+ * cache shared across sources would let a stack composed from an alternative registry be served
+ * later — even offline — as if it were the curated one.
+ * @param {string} url - the registry URL this cache will hold.
+ * @param {string} [dshHome] - DSH home directory.
+ * @returns {string} the cache file path.
+ */
+export function cacheFileFor(url, dshHome) {
+  const home = dshHome ?? process.env.DSH_HOME ?? join(homedir(), '.dsh')
+  const digest = createHash('sha1').update(url).digest('hex').slice(0, 12)
+  return join(home, 'storages', 'stack-composer', `registry-${digest}.json`)
+}
+
+/**
+ * Cache location for the curated registry.
  * @param {string} [dshHome] - DSH home directory.
  * @returns {string} the cache file path.
  */
 export function defaultCacheFile(dshHome) {
-  const home = dshHome ?? process.env.DSH_HOME ?? join(homedir(), '.dsh')
-  return join(home, 'storages', 'stack-composer', 'registry.json')
+  return cacheFileFor(REGISTRY_URL, dshHome)
 }
 
 /**
@@ -61,7 +75,8 @@ export function parseRegistry(text) {
  *   the index and where it came from.
  */
 export async function loadRegistry(options = {}) {
-  const cacheFile = options.cacheFile ?? defaultCacheFile(options.dshHome)
+  const url = options.url ?? REGISTRY_URL
+  const cacheFile = options.cacheFile ?? cacheFileFor(url, options.dshHome)
   const ttl = options.cacheTtlMs ?? CACHE_TTL_MS
   const now = options.now instanceof Date ? options.now : options.now ? new Date(options.now) : new Date()
 
@@ -87,7 +102,6 @@ export async function loadRegistry(options = {}) {
   }
 
   const doFetch = options.fetchImpl ?? fetch
-  const url = options.url ?? REGISTRY_URL
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? 30_000)
   let text

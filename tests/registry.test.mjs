@@ -8,7 +8,7 @@ import assert from 'node:assert/strict'
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { loadRegistry, parseRegistry } from '../src/registry.js'
+import { cacheFileFor, defaultCacheFile, loadRegistry, parseRegistry } from '../src/registry.js'
 
 const dirs = []
 after(() => {
@@ -114,4 +114,34 @@ test('a failing registry response is reported, not swallowed', async () => {
     () => loadRegistry({ cacheFile: join(dir, 'registry.json'), fetchImpl: async () => ({ ok: false, status: 503, text: async () => '' }) }),
     /answered 503/,
   )
+})
+
+test('the cache is keyed by registry URL, so an overridden registry cannot poison the default', async () => {
+  const dir = tempDir()
+  const home = join(dir, 'home')
+  const evil = JSON.stringify({ updated: '2020-01-01', plugins: [{ name: 'evil/only', url: 'https://github.com/evil/only' }] })
+  await loadRegistry({
+    dshHome: home,
+    url: 'https://someone-elses.example/plugins.json',
+    fetchImpl: async () => ({ ok: true, text: async () => evil }),
+  })
+  // The default registry has never been fetched here, so an offline load must fail rather than
+  // serve the other source's document as the curated one.
+  await assert.rejects(
+    () => loadRegistry({ dshHome: home, offline: true }),
+    /no usable registry cache/,
+  )
+  const defaultLoad = await loadRegistry({
+    dshHome: home,
+    fetchImpl: async () => ({ ok: true, text: async () => DOCUMENT }),
+  })
+  assert.equal(defaultLoad.entries.length, 2)
+  const overridden = await loadRegistry({ dshHome: home, url: 'https://someone-elses.example/plugins.json', offline: true })
+  assert.equal(overridden.entries[0].slug, 'evil/only')
+})
+
+test('the default cache path is URL-keyed and distinct per source', () => {
+  const home = join(tempDir(), 'home')
+  assert.notEqual(defaultCacheFile(home), cacheFileFor('https://other.example/plugins.json', home))
+  assert.equal(defaultCacheFile(home), cacheFileFor('https://awesome-dsh-plugin.com/plugins.json', home))
 })

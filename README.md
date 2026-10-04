@@ -7,8 +7,9 @@ against each role using the categories, descriptions, capability flags and red l
 publishes, and returns the picks with the signals that chose them, the risks, the roles it could not
 fill, and one install command per plugin.
 
-It installs nothing and changes nothing it reports on. Its only write is its own registry cache
-under the DSH home, and it makes no network request unless it needs the registry.
+It installs nothing and changes nothing it reports on. Its writes are its own registry cache — one
+file per registry URL, under the DSH home — and any `--out` file you ask for; it makes no network
+request unless it needs the registry.
 
 ## What it reasons over
 
@@ -37,11 +38,12 @@ the check did not observe the behaviour — **not** that the plugin is safe.
    | a capability the role wants, declared | +2 |
    | a capability the role wants, not declared | −1 |
    | each of up to 2 "this is about a different job" fragments | −4 |
-   | popularity | +log₁₀ tiebreak, capped at +4 |
+   | popularity | `min(2, log₁₀(stars+1) + log₁₀(downloads+1)/2)` |
 
 3. **Thresholds.** A role at 6 or more is filled; between 3 and 6 it is shown as a loose match;
-   below 3 the role is reported as a **gap** with the nearest candidate named. A stack is never
-   padded to look complete.
+   below 3 the role is reported as a **gap** with the nearest candidate named. Popularity is capped
+   at +2, below the loose-match threshold, so stars can never fill a role on their own; a stack is
+   never padded to look complete.
 4. **Assembly.** A plugin is picked once even when several roles want it; risk notes come from the
    red lines the registry recorded; the report lists the capability union, the flags worth reviewing
    before installing, and one install command per plugin.
@@ -118,7 +120,7 @@ dsh-stack-composer --roles          # list the 23 roles
 
 | Flag | Effect |
 | --- | --- |
-| `--per-role <n>` | plugins offered per role (default 2) |
+| `--per-role <n>` | plugins offered per role (default 2, 1–8) |
 | `--refresh` | refetch the registry instead of using the day-old cache |
 | `--offline` | never fetch; use the cache, or fail if there is none |
 | `--registry <path\|url>` | read the registry from here instead (a local file is never cached) |
@@ -142,14 +144,16 @@ Exit status is 0 on success and 2 on a usage error or an unreadable registry.
   language-specific writing plugin can outrank a general one, and the registry's `usage` category is
   mostly about the harness's own tokens, not an audience. The report prints the reasons for every
   pick, so a wrong pick is a vocabulary bug you can fix in one file rather than a black box.
-- **Nothing here reads plugin source.** Capability flags are the registry's own observations.
+- **Nothing here reads plugin source.** Capability flags are the registry's own observations, and
+  entries the registry has not checked say "not checked by the registry" rather than "none
+  declared" — 394 of the 4,412 entries carried no capability data on 2026-10-04.
 - **It is not a quality ranking.** Stars and downloads only break ties, and "in the registry at all"
   is the only quality signal the composer inherits.
 - **It does not install anything**, and it does not check whether two picks conflict.
 
 ## Verification
 
-- `npm test` runs 37 tests on `node:test`, with no network: scoring, dedupe, gaps, risk notes,
+- `npm test` runs 45 tests on `node:test`, with no network: scoring, dedupe, gaps, risk notes,
   monorepo slugs, capability search, registry caching and offline behaviour, and the host tool seam
   from a local snapshot.
 - `npm run check:live` composes both sample stacks from the live registry and writes them to

@@ -57,6 +57,9 @@ export function normalizeEntry(raw) {
   const parsed = parseRepoUrl(url)
   return {
     name: parsed.subdirectory ? `${parsed.slug}#${parsed.subdirectory.split('/').pop()}` : parsed.slug,
+    // The registry's own name is often just the package name; keep it for keyword matching, where it
+    // carries words the repository name does not.
+    registryName: typeof raw.name === 'string' ? raw.name : '',
     owner: parsed.owner,
     slug: parsed.slug,
     subdirectory: parsed.subdirectory,
@@ -72,6 +75,10 @@ export function normalizeEntry(raw) {
     install: typeof raw.install === 'string' ? raw.install : '',
     added: typeof raw.added === 'string' ? raw.added : null,
     capabilities,
+    // Absent capability data means the registry never checked this entry; an empty array means it
+    // checked and found nothing. Those are different statements and the report says so.
+    capabilitiesChecked: Array.isArray(raw.capabilities),
+    capabilitiesCheckedAt: typeof raw.capabilityCheckedAt === 'string' ? raw.capabilityCheckedAt : null,
     redLines,
     risks: riskNotes(capabilities, redLines),
   }
@@ -104,9 +111,11 @@ export function riskNotes(capabilities, redLines) {
 /**
  * Render capability flags as a short readable list.
  * @param {string[]} capabilities - capability flags.
- * @returns {string} comma-separated labels, or 'none declared'.
+ * @param {boolean} [checked] - whether the registry checked this entry's source at all.
+ * @returns {string} comma-separated labels, 'none declared', or 'not checked'.
  */
-export function describeCapabilities(capabilities) {
+export function describeCapabilities(capabilities, checked = true) {
+  if (!checked) return 'not checked by the registry'
   if (capabilities.length === 0) return 'none declared'
   return capabilities.map((flag) => CAPABILITIES[flag]?.label ?? flag).join(', ')
 }

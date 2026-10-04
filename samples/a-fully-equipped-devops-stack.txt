@@ -3,120 +3,118 @@ preset: DevOps / platform (devops) · 9 roles · 18 plugins · registry: 4412 en
 why these roles: matched the DevOps / platform preset on "a fully equipped devops stack"
 
 1. Version control and review — Track changes, inspect diffs, and review work before it lands [ok]
-   • HaoyueQin/dsh-git-review — git — score 24.11
+   • HaoyueQin/dsh-git-review — git — score 24
      Review tab for DeepSeek Harness sessions: workspace changes versus HEAD or any two refs as a filterable file tree with side-by-side diffs, a lane commit graph with blame and file history, three-scope search, line comments back to the composer, and guarded stage/commit/branch/tag/stash/conflict operations.
-     why: category git; name contains "git"; name contains "review"; description mentions "commit"; description mentions "diff"; description mentions "branch"
+     why: category git; name contains "git"; name contains "review"; description mentions "commit"; description mentions "diff"; description mentions "branch"; 2 stars, 1852 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads environment variables
      install: dsh plugin --profile web add dsh-git-review
-   • wloops/dsh-git-worktree — git — score 21
+   • wloops/dsh-git-worktree — git — score 20
      Git worktree Session Targets with isolated task sessions, Ready for Review, reversible Local Preview, human-confirmed delivery, environment retention and recovery, and same-session iteration.
-     why: category git; name contains "git"; name contains "worktree"; description mentions "review"
+     why: category git; name contains "git"; name contains "worktree"; description mentions "review"; 17 stars, 3085 downloads
      capabilities: runs shell commands, evaluates code at runtime, writes files, reads files, reads environment variables
      install: dsh plugin --profile web add dsh-git-worktree
 
 2. Checks and quality gates — Test, lint, typecheck, and gate the work [ok]
    • SleepEggTart/dsh-code-coverage — dev — score 18.61
      Parses DSH session logs to attribute AI-written files, overlays c8 coverage, and reports AI vs human code coverage with a trust score, plus a check/fix/verify tool loop for closing test gaps.
-     why: category dev; name contains "coverage"; description mentions "test"; description mentions "check"; declares shell
+     why: category dev; name contains "coverage"; description mentions "test"; description mentions "check"; declares shell; 1 stars, 407 downloads
      capabilities: runs shell commands, writes files, reads files
      install: dsh plugin --profile web add dsh-code-coverage
    • SAXEM1997/specpowers — skill — score 17.48
      Registers six spec-driven + test-driven workflow skills for DeepSeek Harness: OpenSpec spec authoring fused with Superpowers TDD discipline into a Phase 0-4 pipeline with review gates. Zero runtime dependencies.
-     why: category skill; name contains "spec"; description mentions "test"; description mentions "gate"; declares shell
+     why: category skill; name contains "spec"; description mentions "test"; description mentions "gate"; declares shell; 2 stars, 0 downloads
      capabilities: runs shell commands, writes files, reads files
      install: dsh plugin --profile web add github:SAXEM1997/specpowers
 
 3. Containers and infrastructure — Build images and describe the machines the stack runs on [ok]
    • yizhixiaokong/dsh-compose-panel — dev — score 18.45
      Lists the Docker Compose projects of your DSH workspaces in the right sidebar, one group per project directory, with container status, project- and service-level up/stop/restart, and streamed per-service logs.
-     why: category dev; name contains "compose"; description mentions "docker"; description mentions "container"; declares shell
+     why: category dev; name contains "compose"; description mentions "docker"; description mentions "container"; declares shell; 0 stars, 807 downloads
      capabilities: runs shell commands, evaluates code at runtime, reads files, makes network requests, reads environment variables, runs inside the host process
      install: dsh plugin --profile web add dsh-compose-panel
    • Harzva/dsh-uvm — dev — score 13.48
      DSH-native uv environment manager: create, sync and run Python virtualenvs from the settings tab, with pip fallback, read-only conda visibility and a dry-run project sync preview.
-     why: category dev; name contains "vm"; declares shell
+     why: category dev; name contains "vm"; declares shell; 2 stars, 0 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads environment variables, runs inside the host process
      install: dsh plugin --profile web add "https://github.com/Harzva/dsh-uvm/releases/download/v0.1.0-alpha.1/harness-flow-dsh-uvm-0.1.0-alpha.1.tgz"
 
 4. Deployment and release — Ship a build, version it, and roll it back [ok]
    • Octo-o-o-o/dsh-plugin-deploy — dev — score 12.8
      Ship a project to Cloudflare and publish your plugin to npm — the first deploy needs no cloud account, and credentials never reach the model.
-     why: category dev; name contains "deploy"
+     why: category dev; name contains "deploy"; 2 stars, 447 downloads
      capabilities: writes files, reads files, reads credentials or secrets
      install: dsh plugin --profile web add dsh-plugin-deploy
-   • huaweicloud/huaweicloud-devkit — dev — score 11.78
-     HuaweiCloud DevKit gives AI agents complete command of Huawei Cloud — build, deploy, operate, always governed, always secure.
-     why: category dev; description mentions "deploy"
-     capabilities: runs shell commands, writes files, reads files, makes network requests, reads environment variables
-     risk (high): runs code at install time
-     install: dsh plugin --profile web add huaweicloud-devkit
+   • zoahdev/dsh-github-release-radar — git — score 11.48
+     Track releases and stars of any public GitHub repository from inside dsh agents — no API key needed.
+     why: category git; name contains "release"; 2 stars, 0 downloads
+     capabilities: not checked by the registry
+     install: dsh plugin --profile web add github:zoahdev/dsh-github-release-radar
 
 5. Secrets and credentials — Keep keys, tokens, and environment values out of the transcript [ok]
-   • Ox0400/dsh-vault — security — score 24.08
+   • Ox0400/dsh-vault — security — score 23
      Encrypted local credentials vault for the Harness: a web settings page and vault_* tools to store, search and copy passwords, API keys, TOTP secrets and card data, with health audits, expiry rotation, imports/exports and read-only/ask access modes.
-     why: category security; name contains "vault"; description mentions "secret"; description mentions "credential"; description mentions "api key"; declares credentials; declares env
+     why: category security; name contains "vault"; description mentions "secret"; description mentions "credential"; description mentions "api key"; declares credentials; declares env; 11 stars, 10767 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads credentials or secrets, reads environment variables
      risk (high): reads credentials or secrets and has network access
      install: dsh plugin --profile web add dsh-vault
-   • slywalker2006/dsh-passwords — security — score 20.68
+   • slywalker2006/dsh-passwords — security — score 19
      Turns DeepSeek Harness into a server-grade multi-tenant platform: remote access + auto HTTPS, subuser permissions & token/daily quotas, sandbox enforcement, encrypted auth & audit log.
-     why: category security; name contains "password"; description mentions "token"; declares credentials; declares env
+     why: category security; name contains "password"; description mentions "token"; declares credentials; declares env; 66 stars, 5162 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads credentials or secrets, reads environment variables
      risk (high): reads credentials or secrets and has network access
      install: dsh plugin --profile web add dsh-passwords
 
 6. Observability — See what the stack is doing while it runs [ok]
-   • PerryLink/dsh-observe — dev — score 19.92
+   • PerryLink/dsh-observe — dev — score 19
      Exports the session event stream to OpenTelemetry OTLP and Langfuse as sanitized, buffered traces and metrics, off by default.
-     why: category dev; name contains "observ"; description mentions "metric"; description mentions "trace"; description mentions "telemetry"
+     why: category dev; name contains "observ"; description mentions "metric"; description mentions "trace"; description mentions "telemetry"; 13 stars, 3594 downloads
      capabilities: makes network requests
      install: dsh plugin --profile web add dsh-observe
    • Liu-Bot24/dsh-trace-insight — dev — score 16.78
      Read-only trajectory review in a resizable conversation sidebar, with rule analysis, optional model explanations, evidence navigation, and same-range run comparison.
-     why: category dev; name contains "trace"; name contains "insight"
+     why: category dev; name contains "trace"; name contains "insight"; 5 stars, 0 downloads
      capabilities: writes files, reads files, reads environment variables, calls a model
      install: dsh plugin --profile web add "https://github.com/Liu-Bot24/dsh-trace-insight/releases/download/standard-v1.6.2/dsh-plugin-trace-insight-standard-1.6.2.tgz"
 
 7. Notification and alerting — Tell a person when something finishes or breaks [ok]
    • whyihaveyou/dsh-suite — notify — score 22.75
      IM webhook and local notifications on turn completion, errors, or approval (Feishu/WeCom/DingTalk/Slack/Discord/custom).
-     why: category notify; name contains "notify"; name contains "notif"; description mentions "slack"; description mentions "discord"; description mentions "webhook"; no network declared
-     capabilities: none declared
+     why: category notify; name contains "notify"; name contains "notif"; description mentions "slack"; description mentions "discord"; description mentions "webhook"; no network declared; 55 stars, 0 downloads
+     capabilities: not checked by the registry
      install: dsh plugin --profile web add github:whyihaveyou/dsh-suite#path:/packages/plugins/plugin-notify
-   • mzzsfy/dsh-plugin — notify — score 22.08
+   • mzzsfy/dsh-plugin — notify — score 22
      Turn event notifications: six event classes (completed, error, interrupted, approval requested, AI question, limit reached) delivered via sound, system notification, in-page banner, webhook, IM and host desktop-notification channels; when several browser windows are open, only one rings.
-     why: category notify; name contains "notify"; name contains "notif"; description mentions "webhook"; declares network
+     why: category notify; name contains "notify"; name contains "notif"; description mentions "webhook"; declares network; 1 stars, 3531 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests
      install: dsh plugin --profile web add @mzzsfy/dsh-turn-notify
 
 8. Remote access — Reach machines and sessions from somewhere else [ok]
-   • ZhangFengshun/dsh-remote-ssh — remote — score 23.34
+   • ZhangFengshun/dsh-remote-ssh — remote — score 22
      VSCode Remote-SSH-style development for DSH — connect to HPC and servers over SSH, read and edit remote files in the built-in Files tab, auto-SSH terminal, remote workspaces with single-roundtrip reads and result caching, and 12 session-aware remote_ssh_* model tools.
-     why: category remote; name contains "ssh"; name contains "remote"; description mentions "terminal"; declares shell
+     why: category remote; name contains "ssh"; name contains "remote"; description mentions "terminal"; declares shell; 26 stars, 6553 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads credentials or secrets, reads environment variables
      risk (high): reads credentials or secrets and has network access
      install: dsh plugin --profile web add @zhangfengshun/dsh-remote-ssh
-   • Linjiangxian0203/dsh-remote-tunnel — remote — score 22.47
+   • Linjiangxian0203/dsh-remote-tunnel — remote — score 22
      Remote host tunnel manager: runs dsh web on a remote Linux server (systemd supervision, no root needed) behind an auto-reconnecting SSH tunnel; allocates and registers remote ports on the server, multi-user safe, with an audit view.
-     why: category remote; name contains "remote"; name contains "tunnel"; description mentions "ssh"; declares shell
+     why: category remote; name contains "remote"; name contains "tunnel"; description mentions "ssh"; declares shell; 6 stars, 1767 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads environment variables
      install: dsh plugin --profile web add dsh-remote-tunnel
 
 9. Scheduling and automation — Run work on a clock or a trigger [ok]
    • yangdongzhen590/dsh-knj-scheduler — workflow — score 18.98
      Cron task scheduler for DSH: on schedule, automatically creates a new session and injects your prompt as its first message, with task history and manual run/stop controls. Also runs KNJ workflows: pick files directly (stored as persistent snapshots, re-handed to the workflow on every fire) or reference them by path. Its sidebar entry is provided by dsh-knj-menu; install together: dsh plugin add dsh-scheduler dsh-knj-menu.
-     why: category workflow; name contains "schedule"; description mentions "cron"; description mentions "workflow"; description mentions "automat"
+     why: category workflow; name contains "schedule"; description mentions "cron"; description mentions "workflow"; description mentions "automat"; 2 stars, 1017 downloads
      capabilities: writes files, reads files, makes network requests, reads environment variables
      install: dsh plugin --profile web add dsh-scheduler
-   • GooDAnDReaDY/dsh-cron — workflow — score 17.85
+   • GooDAnDReaDY/dsh-cron — workflow — score 17
      Scheduled cron tasks, background automation and agent execution for DeepSeek Harness.
-     why: category workflow; name contains "cron"; description mentions "schedule"; description mentions "automat"
+     why: category workflow; name contains "cron"; description mentions "schedule"; description mentions "automat"; 6 stars, 11518 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads credentials or secrets, reads environment variables, calls a model
      risk (high): reads credentials or secrets and has network access
      install: dsh plugin --profile web add @goodandready/dsh-cron
 
 risk notes
-   ! huaweicloud/huaweicloud-devkit: runs code at install time
    ! Ox0400/dsh-vault: reads credentials or secrets and has network access
 
 capabilities this stack asks for: credentials, dynamic-code, env, fs-read, fs-write, host-runtime, llm, network, shell
@@ -130,7 +128,7 @@ install plan
    dsh plugin --profile web add dsh-compose-panel
    dsh plugin --profile web add "https://github.com/Harzva/dsh-uvm/releases/download/v0.1.0-alpha.1/harness-flow-dsh-uvm-0.1.0-alpha.1.tgz"
    dsh plugin --profile web add dsh-plugin-deploy
-   dsh plugin --profile web add huaweicloud-devkit
+   dsh plugin --profile web add github:zoahdev/dsh-github-release-radar
    dsh plugin --profile web add dsh-vault
    dsh plugin --profile web add dsh-passwords
    dsh plugin --profile web add dsh-observe

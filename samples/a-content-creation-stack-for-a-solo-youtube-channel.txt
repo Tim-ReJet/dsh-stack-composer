@@ -5,76 +5,76 @@ why these roles: matched the Content creation preset on "a content creation stac
 1. Research and capture — Find, fetch, and keep source material [ok]
    • PyModel/dsh-research-plugins — browser — score 21.92
      Tavily Search API as a web search provider (settings toggle with DeepSeek fallback, keyless search) plus a Tavily MCP bridge: keyless search and extract tools, crawl and map with an API key.
-     why: category browser; name contains "search"; name contains "research"; description mentions "crawl"; declares network
+     why: category browser; name contains "search"; name contains "research"; description mentions "crawl"; declares network; 2 stars, 768 downloads
      capabilities: makes network requests, reads credentials or secrets
      risk (high): reads credentials or secrets and has network access
      install: dsh plugin --profile web add @pymodel/dsh-tavily
-   • PerryLink/dsh-industry-research — docs — score 21.79
+   • PerryLink/dsh-industry-research — docs — score 20
      Deterministic industry research reports for DeepSeek Harness — company and industry research flows produce structured, verifiable reports from staged evidence.
-     why: category docs; name contains "search"; name contains "research"; declares network
+     why: category docs; name contains "search"; name contains "research"; declares network; 205 stars, 3819 downloads
      capabilities: writes files, reads files, makes network requests
      install: dsh plugin --profile web add dsh-industry-research
 
 2. Writing and editing — Draft, restructure, and tighten prose [ok]
    • Vladimir-Human/humanizer-ru — skill — score 16
      Cleans AI traces from Russian text: finds chatbot copy-paste artefacts (ChatGPT, Gemini, Grok, Perplexity, DeepSeek), strips hidden text marks (zero-width characters, invisible layout; shadow scan catches markers split by invisibles), and rewrites the text into natural prose on request; 40 regex markers, 38 with full evidence-registry entries; 156 gates, 530 tests; offline, text-only bundle (binary metadata removal lives in scripts/).
-     why: category skill; name contains "humanize"; description mentions "prose"; description mentions "rewrite"; no llm declared
+     why: category skill; name contains "humanize"; description mentions "prose"; description mentions "rewrite"; no llm declared; 126 stars, 0 downloads
      capabilities: none declared
      install: dsh plugin --profile web add github:Vladimir-Human/humanizer-ru#path:/dsh
    • RrcoVer0/dsh-webnovel-writer — skill — score 14.48
      Adds file-backed Chinese web-fiction planning, chapter writing, consistency review, rollback, and style-profile skills.
-     why: category skill; name contains "novel"; description mentions "writing"; description mentions "style"; no llm declared
+     why: category skill; name contains "novel"; description mentions "writing"; description mentions "style"; no llm declared; 2 stars, 0 downloads
      capabilities: reads files
      install: dsh plugin --profile web add github:RrcoVer0/dsh-webnovel-writer
 
 3. Images and visuals — Produce or read pictures, screenshots, and diagrams [ok]
-   • ysr666/dsh-vision-router — vision — score 21
+   • ysr666/dsh-vision-router — vision — score 19
      Free vision for text-only agents: built-in keyless vision chain plus pixel tools (Q&A, grounding, crop, pixel diff, colors, OCR, SVG trace, cutout, screenshots); paste an image to use it.
-     why: category vision; name contains "vision"; description mentions "image"; description mentions "ocr"; description mentions "screenshot"
+     why: category vision; name contains "vision"; description mentions "image"; description mentions "ocr"; description mentions "screenshot"; 1124 stars, 36461 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads credentials or secrets, reads environment variables, calls a model
      risk (high): reads credentials or secrets and has network access
      install: dsh plugin --profile web add dsh-vision-router
-   • Anionex/dsh-vision-toolkit — vision — score 21
+   • Anionex/dsh-vision-toolkit — vision — score 19
      Vision for text-only models: paste an image and the model switches to a Vision Toolkit variant for image Q&A, multi-image comparison, long-screenshot OCR, screenshot-to-UI reproduction, element grounding, and pixel diff. No API key by default — images are processed by the author-hosted free service, 100 per machine per day; configurable to your own provider.
-     why: category vision; name contains "vision"; description mentions "image"; description mentions "ocr"; description mentions "screenshot"
+     why: category vision; name contains "vision"; description mentions "image"; description mentions "ocr"; description mentions "screenshot"; 885 stars, 15594 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads credentials or secrets, reads environment variables, runs inside the host process
      risk (high): reads credentials or secrets and has network access
      install: dsh plugin --profile web add @anionex/dsh-vision-toolkit
 
 4. Video and audio — Produce or transcribe moving pictures and sound [ok]
-   • STARDUSTLC666/dsh-voice — voice — score 19.4
+   • STARDUSTLC666/dsh-voice — voice — score 19
      Voice tools: free edge-tts neural speech synthesis, OpenAI-compatible ASR transcription, voice list, batch voice preview and health self-check.
-     why: category voice; name contains "voice"; description mentions "speech"; description mentions "tts"; description mentions "transcri"
+     why: category voice; name contains "voice"; description mentions "speech"; description mentions "tts"; description mentions "transcri"; 4 stars, 2472 downloads
      capabilities: writes files, reads files, makes network requests, reads environment variables
      install: dsh plugin --profile web add dsh-voice
-   • shimingming520/dsh-audiogen — voice — score 19.24
+   • shimingming520/dsh-audiogen — voice — score 19
      AI audio generation for the DeepSeek Harness web GUI — multi-vendor TTS, music, sound effects and voice design with a sidebar panel, model comparison, resource library and Agent tools.
-     why: category voice; name contains "audio"; description mentions "voice"; description mentions "tts"; description mentions "music"
+     why: category voice; name contains "audio"; description mentions "voice"; description mentions "tts"; description mentions "music"; 3 stars, 1857 downloads
      capabilities: writes files, reads files, makes network requests, reads environment variables, calls a model
      install: dsh plugin --profile web add dsh-audiogen
 
 5. Publishing and distribution — Put finished work where the audience is [ok]
    • yangyongzhen/dsh-article-publish — workflow — score 15.6
      Publish articles to CSDN / Juejin / CNBlog directly from the session, no external server.
-     why: category workflow; name contains "publish"; description mentions "blog"; declares network
+     why: category workflow; name contains "publish"; description mentions "blog"; declares network; 3 stars, 0 downloads
      capabilities: makes network requests, reads environment variables
      install: dsh plugin --profile web add github:yangyongzhen/dsh-article-publish
-   • Jackywxsz/DSH-Creator — workflow — score 15.44
+   • Jackywxsz/DSH-Creator — workflow — score 14
      Local-first content production and operations workspace for DSH: manage ideas, scripts, media assets, schedules, goals, publishing status, and post-publication reviews.
-     why: category workflow; description mentions "publish"; description mentions "post"; declares network
+     why: category workflow; description mentions "publish"; description mentions "post"; declares network; 107 stars, 775 downloads
      capabilities: runs shell commands, evaluates code at runtime, writes files, reads files, makes network requests, reads credentials or secrets, reads environment variables
      risk (high): reads credentials or secrets and has network access
      install: dsh plugin --profile web add jacky-creator
 
 6. Analytics and growth — Measure what landed and what to do next [ok]
-   • dingyi222666/dsh-wakatime — usage — score 10.11
+   • dingyi222666/dsh-wakatime — usage — score 10
      Tracks DSH's file reads, image views, and code edits in WakaTime, including exact counts of lines added and deleted by AI. Keeps activity tracking running while DSH responds, batches updates across files, and coordinates per-project reporting limits across parallel DSH processes. Automatically installs and updates wakatime-cli.
-     why: category usage; description mentions "views"
+     why: category usage; description mentions "views"; 2 stars, 1834 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads environment variables
      install: dsh plugin --profile web add @dingyi222666/dsh-wakatime
-   • Han-1413141/dsh-cost-meter — usage — score 10
+   • Han-1413141/dsh-cost-meter — usage — score 8
      Per-session and daily API cost, budget with usage %, official balance, history dashboard, and one-click official price sync with peak/off-peak pricing.
-     why: category usage
+     why: category usage; 369 stars, 95160 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads credentials or secrets, reads environment variables
      risk (high): reads credentials or secrets and has network access
      install: dsh plugin --profile web add dsh-cost-meter
@@ -82,24 +82,24 @@ why these roles: matched the Content creation preset on "a content creation stac
 7. Memory and asset library — Keep context, references, and raw material retrievable [ok]
    • liangxiaobing520/dsh-local-vector-memory — memory — score 22.6
      Fully local vector memory for DSH: local embeddings, SQLite storage, automatic recall injection, dedup with conflict detection, soft-delete recycle bin, online backup, and optional LLM extraction.
-     why: category memory; name contains "memory"; name contains "vector"; description mentions "storage"; description mentions "embedding"; declares fs-write
+     why: category memory; name contains "memory"; name contains "vector"; description mentions "storage"; description mentions "embedding"; declares fs-write; 3 stars, 0 downloads
      capabilities: writes files, reads files, makes network requests, reads environment variables
      install: dsh plugin --profile web add github:liangxiaobing520/dsh-local-vector-memory
-   • Aik358/dsh-auto-memory — memory — score 20.97
-     Proactive associative memory for DSH: zero-prompt recall injected at a fixed boundary, three-layer auto-consolidation, skill crystallization, and Astra-style context management - handoff ledgers and a PLAN whiteboard that survive context-window switches, water-level sensing with an auto-detected model window. Local Markdown storage, model-agnostic, zero deps; lexical 0GB floor with optional semantic tiers.
-     why: category memory; name contains "memory"; description mentions "context"; description mentions "storage"; declares fs-write
-     capabilities: runs shell commands, writes files, reads files, makes network requests, reads environment variables, spawns subagents
-     install: dsh plugin --profile web add @a9i5k4/dsh-auto-memory
+   • vv5v5/dsh-memory-archive — memory — score 20
+     Memory archive and prompt viewer for DeepSeek Harness: read back what compaction folded out of context - browse past sessions or Tavern playthrough archives (summary, original text, state) with full-text search - and inspect the prompt each turn actually sent, listing every assembled system section with its order, character count, offset, hash and mutability, plus an assembly map, registry export, and honest diagnostics when a section is empty or its log cannot be read. Optionally provisions a roleplay agent preset.
+     why: category memory; name contains "memory"; name contains "archive"; description mentions "context"; declares fs-write
+     capabilities: runs shell commands, writes files, reads files, makes network requests, reads environment variables, calls a model
+     install: dsh plugin --profile web add "https://github.com/vv5v5/dsh-memory-archive/releases/latest/download/dsh-memory-archive.tgz"
 
 8. Scheduling and automation — Run work on a clock or a trigger [ok]
    • yangdongzhen590/dsh-knj-scheduler — workflow — score 18.98
      Cron task scheduler for DSH: on schedule, automatically creates a new session and injects your prompt as its first message, with task history and manual run/stop controls. Also runs KNJ workflows: pick files directly (stored as persistent snapshots, re-handed to the workflow on every fire) or reference them by path. Its sidebar entry is provided by dsh-knj-menu; install together: dsh plugin add dsh-scheduler dsh-knj-menu.
-     why: category workflow; name contains "schedule"; description mentions "cron"; description mentions "workflow"; description mentions "automat"
+     why: category workflow; name contains "schedule"; description mentions "cron"; description mentions "workflow"; description mentions "automat"; 2 stars, 1017 downloads
      capabilities: writes files, reads files, makes network requests, reads environment variables
      install: dsh plugin --profile web add dsh-scheduler
-   • GooDAnDReaDY/dsh-cron — workflow — score 17.85
+   • GooDAnDReaDY/dsh-cron — workflow — score 17
      Scheduled cron tasks, background automation and agent execution for DeepSeek Harness.
-     why: category workflow; name contains "cron"; description mentions "schedule"; description mentions "automat"
+     why: category workflow; name contains "cron"; description mentions "schedule"; description mentions "automat"; 6 stars, 11518 downloads
      capabilities: runs shell commands, writes files, reads files, makes network requests, reads credentials or secrets, reads environment variables, calls a model
      risk (high): reads credentials or secrets and has network access
      install: dsh plugin --profile web add @goodandready/dsh-cron
@@ -107,7 +107,7 @@ why these roles: matched the Content creation preset on "a content creation stac
 risk notes
    ! PyModel/dsh-research-plugins: reads credentials or secrets and has network access
 
-capabilities this stack asks for: credentials, dynamic-code, env, fs-read, fs-write, host-runtime, llm, network, shell, subagent
+capabilities this stack asks for: credentials, dynamic-code, env, fs-read, fs-write, host-runtime, llm, network, shell
 worth reviewing before you install: credentials (reads credentials or secrets), dynamic-code (evaluates code at runtime), fs-write (writes files), host-runtime (runs inside the host process), network (makes network requests), shell (runs shell commands)
 
 install plan
@@ -124,7 +124,7 @@ install plan
    dsh plugin --profile web add @dingyi222666/dsh-wakatime
    dsh plugin --profile web add dsh-cost-meter
    dsh plugin --profile web add github:liangxiaobing520/dsh-local-vector-memory
-   dsh plugin --profile web add @a9i5k4/dsh-auto-memory
+   dsh plugin --profile web add "https://github.com/vv5v5/dsh-memory-archive/releases/latest/download/dsh-memory-archive.tgz"
    dsh plugin --profile web add dsh-scheduler
    dsh plugin --profile web add @goodandready/dsh-cron
 

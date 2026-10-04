@@ -31,7 +31,7 @@ export const WEAK_SCORE = 3
 export function scoreEntry(entry, role) {
   const reasons = []
   let score = 0
-  const name = `${entry.name} ${entry.slug}`.toLowerCase()
+  const name = `${entry.name} ${entry.registryName ?? ''} ${entry.slug}`.toLowerCase()
   const description = entry.description.toLowerCase()
 
   if (role.categories.includes(entry.category)) {
@@ -68,8 +68,9 @@ export function scoreEntry(entry, role) {
     reasons.push(`is about "${term}", not this role`)
   }
 
-  // Popularity is a tiebreak: log-scaled so a 4k-star plugin cannot bury a better fit.
-  const popularity = Math.min(2, Math.log10(entry.stars + 1)) + Math.min(2, Math.log10(entry.downloads + 1) / 2)
+  // Popularity is a tiebreak and nothing more: capped at +2, below WEAK_SCORE, so stars can never
+  // fill a role on their own or outrank a category or name match.
+  const popularity = Math.min(2, Math.log10(entry.stars + 1) + Math.log10(entry.downloads + 1) / 2)
   if (popularity > 0) {
     score += popularity
     reasons.push(`${entry.stars} stars, ${entry.downloads} downloads`)
@@ -92,12 +93,23 @@ export function rankRole(role, entries, exclude = [], limit = 2) {
     .map((entry) => ({ entry, ...scoreEntry(entry, role) }))
     .sort((a, b) => (b.score - a.score) || (b.entry.stars - a.entry.stars) || a.entry.slug.localeCompare(b.entry.slug))
 
-  const best = ranked[0]
+  // Sibling sub-packages of one monorepo share a slug; a role should name the repository once, not
+  // fill its slots with the same repository under several subdirectory names.
+  const seen = new Set()
+  const distinct = ranked.filter((candidate) => {
+    if (seen.has(candidate.entry.slug)) return false
+    seen.add(candidate.entry.slug)
+    return true
+  })
+
+  const best = distinct[0]
   if (!best || best.score < WEAK_SCORE) {
     return { role, status: 'gap', picks: [], nearest: best ? { slug: best.entry.slug, score: best.score } : null }
   }
   const status = best.score >= FILLED_SCORE ? 'filled' : 'weak'
-  return { role, status, picks: ranked.slice(0, limit), nearest: null }
+  // Only candidates that clear the threshold are offered: a filled role should not trail two
+  // below-threshold names it matched by popularity.
+  return { role, status, picks: distinct.filter((candidate) => candidate.score >= WEAK_SCORE).slice(0, limit), nearest: null }
 }
 
 /**
@@ -182,18 +194,20 @@ export function installPlan(picked) {
 export function searchPlugins(entries, query, options = {}) {
   const limit = options.limit ?? 10
   const words = String(query ?? '').toLowerCase().split(/[^a-z0-9+.#-]+/).filter((word) => word.length > 2)
+  // A query with nothing to match on returns nothing: popularity must never stand in for relevance.
+  if (words.length === 0) return []
   let pool = entries
   if (options.category) pool = pool.filter((entry) => entry.category === options.category)
   if (options.capability) pool = pool.filter((entry) => entry.capabilities.includes(options.capability))
   return pool
     .map((entry) => {
-      const haystack = `${entry.name} ${entry.slug} ${entry.description}`.toLowerCase()
+      const haystack = `${entry.name} ${entry.registryName ?? ''} ${entry.slug} ${entry.description}`.toLowerCase()
       const hits = words.filter((word) => haystack.includes(word))
       const score = hits.reduce((total, word) => total + (entry.name.toLowerCase().includes(word) ? 5 : 2), 0)
         + Math.min(2, Math.log10(entry.stars + 1))
       return { entry, score: Math.round(score * 100) / 100, hits }
     })
-    .filter((match) => match.score > 0)
+    .filter((match) => match.hits.length > 0)
     .sort((a, b) => (b.score - a.score) || (b.entry.stars - a.entry.stars) || a.entry.slug.localeCompare(b.entry.slug))
     .slice(0, limit)
 }

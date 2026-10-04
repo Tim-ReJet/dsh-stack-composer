@@ -83,3 +83,18 @@ test('the vocabulary is the one the registry publishes', () => {
     'credentials', 'dynamic-code', 'env', 'fs-read', 'fs-write', 'host-runtime', 'llm', 'network', 'shell', 'subagent',
   ])
 })
+
+test('never-checked capability data is distinguishable from checked-clean', () => {
+  const unchecked = normalizeEntry({ url: 'https://github.com/a/unchecked' })
+  assert.equal(unchecked.capabilitiesChecked, false)
+  assert.equal(describeCapabilities(unchecked.capabilities, unchecked.capabilitiesChecked), 'not checked by the registry')
+  const checked = normalizeEntry({ url: 'https://github.com/a/checked', capabilities: [] })
+  assert.equal(checked.capabilitiesChecked, true)
+  assert.equal(describeCapabilities(checked.capabilities, checked.capabilitiesChecked), 'none declared')
+})
+
+test('the registry name is kept for keyword matching', () => {
+  const entry = normalizeEntry({ name: 'writing-guard', url: 'https://github.com/x/dsh-plugin-writing-guard' })
+  assert.equal(entry.registryName, 'writing-guard')
+  assert.equal(entry.name, 'x/dsh-plugin-writing-guard')
+})

@@ -22,8 +22,8 @@ const entry = (slug) => {
 }
 
 test('the fixture registry parses and drops entries without a url', () => {
-  assert.equal(fixture.entries.length, 26)
-  assert.equal(fixture.meta.count, 26)
+  assert.equal(fixture.entries.length, 27)
+  assert.equal(fixture.meta.count, 27)
   assert.equal(fixture.entries.find((item) => item.name === 'broken/no-url-entry'), undefined)
 })
 
@@ -115,7 +115,7 @@ test('composition is deterministic', () => {
 test('capability search filters and ranks', () => {
   const matches = searchPlugins(fixture.entries, 'query data sql', { limit: 3 })
   assert.equal(matches[0].entry.slug, 'acme/dsh-sql-duckdb')
-  const filtered = searchPlugins(fixture.entries, 'browser', { capability: 'network', category: 'browser', limit: 5 })
+  const filtered = searchPlugins(fixture.entries, 'web search', { capability: 'network', category: 'browser', limit: 5 })
   assert.ok(filtered.every((match) => match.entry.capabilities.includes('network')))
   assert.ok(filtered.some((match) => match.entry.slug === 'acme/dsh-web-research'))
 })
@@ -165,7 +165,8 @@ test('an avoid term pushes a keyword collision out of a role', () => {
 
 test('a negated preset phrase does not select that preset', () => {
   assert.equal(deriveIntent('not a content creator, just a note keeper').presetId, null)
-  assert.equal(deriveIntent('no research, just publishing drafts').presetId, null)
+  // The negation reaches only its own clause, so a later positive "publishing" still selects.
+  assert.equal(deriveIntent('no research, just publishing drafts').presetId, 'content-creator')
   assert.equal(deriveIntent('instead of a security stack, a writing stack').presetId, null)
   assert.equal(deriveIntent('a fully equipped DevOps stack').presetId, 'devops')
 })
@@ -182,4 +183,48 @@ test('registry order does not change the composed stack', () => {
 test('the thresholds are the documented ones', () => {
   assert.equal(FILLED_SCORE, 6)
   assert.equal(WEAK_SCORE, 3)
+})
+
+test('a query with nothing to match on returns nothing, not popularity-ranked noise', () => {
+  assert.deepEqual(searchPlugins(fixture.entries, '!!!'), [])
+  assert.deepEqual(searchPlugins(fixture.entries, 'ai ml go'), [])
+  assert.deepEqual(searchPlugins(fixture.entries, ''), [])
+  assert.ok(searchPlugins(fixture.entries, 'docker').length > 0)
+})
+
+test('popularity alone can never fill or loosely fill a role', () => {
+  const docs = roleById('docs-and-runbooks')
+  const popular = normalizeEntry({
+    url: 'https://github.com/a/very-popular',
+    category: 'fun',
+    description: { en: 'An unrelated but extremely well starred plugin.' },
+    stars: 5_000_000,
+    downloads: 5_000_000,
+  })
+  const scored = scoreEntry(popular, docs)
+  assert.ok(scored.score <= 2, `popularity alone scored ${scored.score}`)
+  assert.ok(scored.score < WEAK_SCORE)
+  const block = rankRole(docs, [popular], [], 1)
+  assert.equal(block.status, 'gap')
+})
+
+test('a sibling sub-package of the same repository fills a role once', () => {
+  const docs = roleById('docs-and-runbooks')
+  const siblings = [
+    normalizeEntry({ url: 'https://github.com/a/mono/tree/main/packages/one', category: 'docs', description: { en: 'Runbook and markdown writer.' }, stars: 10 }),
+    normalizeEntry({ url: 'https://github.com/a/mono/tree/main/packages/two', category: 'docs', description: { en: 'Runbook and markdown writer, second flavour.' }, stars: 9 }),
+  ]
+  const block = rankRole(docs, siblings, [], 5)
+  assert.equal(block.picks.length, 1)
+  assert.equal(block.picks[0].entry.slug, 'a/mono')
+})
+
+test('printed reasons add up to the score, popularity included', () => {
+  const entryPoint = entry('acme/dsh-git-review')
+  const role = roleById('git-and-review')
+  const scored = scoreEntry(entryPoint, role)
+  assert.ok(scored.reasons.some((reason) => /stars, .* downloads/.test(reason)))
+  const stack = composeStack(deriveIntent('devops'), fixture.entries, {})
+  const pick = stack.roles.flatMap((block) => block.picks).find((candidate) => candidate.entry.slug === 'acme/dsh-git-review')
+  if (pick) assert.ok(pick.reasons.some((reason) => /stars, .* downloads/.test(reason)))
 })

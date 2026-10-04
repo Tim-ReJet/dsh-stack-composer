@@ -267,14 +267,37 @@ const GENERIC_DEFAULTS = ['scheduling-and-automation', 'asset-and-context-librar
 
 /**
  * Whether a phrase at a position in the purpose is negated, so "not a content creator" does not
- * select the content-creation preset.
+ * select the content-creation preset. The negation must sit in the same clause as the phrase: a
+ * comma, semicolon or full stop between them ends its reach.
  * @param {string} text - the lowercased purpose.
  * @param {number} index - where the phrase begins.
- * @returns {boolean} true when a negation immediately precedes the phrase.
+ * @returns {boolean} true when a negation immediately precedes the phrase in its clause.
  */
 function isNegated(text, index) {
-  const before = text.slice(Math.max(0, index - 32), index)
-  return /(^|[^a-z])(not|no|never|without|avoid|instead of|rather than|other than)\s[^.;]{0,24}$/.test(before)
+  const before = text.slice(Math.max(0, index - 40), index)
+  return /(^|[^a-z])(not|no|never|without|avoid|instead of|rather than|other than)\s[^.;,]{0,24}$/.test(before)
+}
+
+/**
+ * The longest phrase one preset matches positively, or 0 when every occurrence is negated.
+ * @param {string} text - the lowercased purpose.
+ * @param {string[]} phrases - the preset's match phrases.
+ * @returns {number} the longest positively matched phrase length.
+ */
+function longestPositiveMatch(text, phrases) {
+  let best = 0
+  for (const phrase of phrases) {
+    if (phrase.length <= best) continue
+    // Every occurrence is considered: "not a devops stack, but definitely a devops stack" names
+    // devops in earnest the second time.
+    for (let index = text.indexOf(phrase); index !== -1; index = text.indexOf(phrase, index + 1)) {
+      if (!isNegated(text, index)) {
+        best = phrase.length
+        break
+      }
+    }
+  }
+  return best
 }
 
 /**
@@ -293,12 +316,10 @@ export function deriveIntent(purpose, options = {}) {
   let presetId = null
   let bestMatchLength = 0
   for (const [id, preset] of Object.entries(PRESETS)) {
-    for (const phrase of preset.match) {
-      const index = text.indexOf(phrase)
-      if (index === -1 || phrase.length <= bestMatchLength) continue
-      if (isNegated(text, index)) continue
+    const matched = longestPositiveMatch(text, preset.match)
+    if (matched > bestMatchLength) {
       presetId = id
-      bestMatchLength = phrase.length
+      bestMatchLength = matched
     }
   }
 

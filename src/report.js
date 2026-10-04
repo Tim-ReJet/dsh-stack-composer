@@ -34,8 +34,8 @@ export function formatStack(stack, options = {}) {
       const entry = pick.entry
       lines.push(`   • ${entry.slug} — ${entry.category} — score ${pick.score}`)
       lines.push(`     ${entry.description}`)
-      if (showReasons) lines.push(`     why: ${pick.reasons.filter((reason) => !/stars, .* downloads/.test(reason)).join('; ') || 'popularity only'}`)
-      lines.push(`     capabilities: ${describeCapabilities(entry.capabilities)}`)
+      if (showReasons) lines.push(`     why: ${pick.reasons.join('; ') || 'no signal matched'}`)
+      lines.push(`     capabilities: ${describeCapabilities(entry.capabilities, entry.capabilitiesChecked)}`)
       for (const risk of entry.risks) lines.push(`     risk (${risk.level}): ${risk.note}`)
       if (showInstalls) lines.push(`     install: ${entry.install || `dsh plugin --profile web add ${entry.npm ?? entry.slug}`}`)
     }
@@ -86,7 +86,7 @@ export function formatCapabilityReport(query, matches) {
     lines.push('')
     lines.push(`• ${entry.slug} — ${entry.category} — score ${match.score}`)
     lines.push(`  ${entry.description}`)
-    lines.push(`  capabilities: ${describeCapabilities(entry.capabilities)}`)
+    lines.push(`  capabilities: ${describeCapabilities(entry.capabilities, entry.capabilitiesChecked)}`)
     if (entry.redLines.length > 0) {
       lines.push(`  red lines recorded: ${entry.redLines.slice(0, 3).join('; ')}${entry.redLines.length > 3 ? ` (+${entry.redLines.length - 3} more)` : ''}`)
     }

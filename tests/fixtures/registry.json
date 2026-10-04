@@ -3,7 +3,7 @@
  "url": "https://example.test/plugins.json",
  "source": "fixture",
  "updated": "2026-10-01",
- "count": 27,
+ "count": 28,
  "plugins": [
   {
    "name": "acme/dsh-git-review",
@@ -646,6 +646,31 @@
   },
   {
    "name": "broken/no-url-entry"
+  },
+  {
+   "name": "acme/dsh-release-rollout",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-release-rollout",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-release-rollout/",
+   "category": "dev",
+   "description": {
+    "en": "Blue-green deploy pipeline: roll a release out and rollback on failed health checks."
+   },
+   "npm": "@acme/dsh-release-rollout",
+   "version": "1.0.0",
+   "stars": 30,
+   "downloads": 500,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "shell",
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-release-rollout",
+   "added": "2026-09-20"
   }
  ]
 }
