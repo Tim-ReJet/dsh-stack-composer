@@ -1,0 +1,56 @@
+{
+  "name": "dsh-stack-composer",
+  "version": "0.1.0",
+  "description": "Compose a working stack of DeepSeek Harness plugins for a stated purpose — a DevOps stack, a content-creation stack, a data stack — by scoring the curated dsh-plugin registry's categories, descriptions, capability flags and red lines against the roles the purpose needs. Read-only: it installs nothing and reports gaps and risks alongside the picks.",
+  "type": "module",
+  "license": "MIT",
+  "main": "src/index.js",
+  "bin": {
+    "dsh-stack-composer": "bin/dsh-stack-composer.mjs"
+  },
+  "files": [
+    "src",
+    "bin",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "deepseek",
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "cordis-plugin",
+    "stack",
+    "capabilities",
+    "composer"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tim-ReJet/dsh-stack-composer.git"
+  },
+  "homepage": "https://github.com/Tim-ReJet/dsh-stack-composer#readme",
+  "bugs": {
+    "url": "https://github.com/Tim-ReJet/dsh-stack-composer/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test \"tests/*.test.mjs\"",
+    "compose": "node bin/dsh-stack-composer.mjs \"a fully equipped DevOps stack\"",
+    "presets": "node bin/dsh-stack-composer.mjs --presets",
+    "check:live": "node scripts/check-live.mjs",
+    "verify:install": "bash scripts/verify-install.sh"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": ">=0.1.1-rc.1 <0.1.2-0 || >=0.2.0-rc.1 <0.2.1-0",
+    "@deepseek-ai/schemastery": "^3.18.1"
+  }
+}

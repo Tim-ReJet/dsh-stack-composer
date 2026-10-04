@@ -1,0 +1,17 @@
+# dsh-stack-composer — the bundle patch.
+#
+# package.json declares `dsh.bundle.patch`, so installing this package into a profile appends this
+# layer to that profile's composed configuration. One row: the host plugin that owns the
+# `stack_compose` and `plugin_capabilities` tools. It injects the `tools` service, which the base
+# bundle provides, so no other row is needed.
+#
+# `perRole` is how many plugins the composer offers for each role of a stack. The registry URL is
+# the curated dsh-plugin list; point it elsewhere (or set offline) to compose from a cache or a
+# local snapshot.
+- insert:
+    - id: stack-composer
+      name: dsh-stack-composer
+      config:
+        perRole: 2
+        registryUrl: 'https://awesome-dsh-plugin.com/plugins.json'
+        offline: false

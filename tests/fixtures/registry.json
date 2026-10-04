@@ -1,0 +1,651 @@
+{
+ "name": "fixture registry",
+ "url": "https://example.test/plugins.json",
+ "source": "fixture",
+ "updated": "2026-10-01",
+ "count": 27,
+ "plugins": [
+  {
+   "name": "acme/dsh-git-review",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-git-review",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-git-review/",
+   "category": "git",
+   "description": {
+    "en": "Review Git diffs and pull requests before they land."
+   },
+   "npm": "@acme/dsh-git-review",
+   "version": "1.0.0",
+   "stars": 120,
+   "downloads": 4000,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "fs-read",
+    "shell"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-git-review",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-quality-gate",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-quality-gate",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-quality-gate/",
+   "category": "dev",
+   "description": {
+    "en": "Run tests, lint and typecheck as a gate before finishing work."
+   },
+   "npm": "@acme/dsh-quality-gate",
+   "version": "1.0.0",
+   "stars": 80,
+   "downloads": 2600,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "shell"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-quality-gate",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-docker-compose",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-docker-compose",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-docker-compose/",
+   "category": "dev",
+   "description": {
+    "en": "Build container images and bring up a docker compose stack."
+   },
+   "npm": "@acme/dsh-docker-compose",
+   "version": "1.0.0",
+   "stars": 5,
+   "downloads": 90,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "shell"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-docker-compose",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-theme-pack",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-theme-pack",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-theme-pack/",
+   "category": "theme",
+   "description": {
+    "en": "Skin the interface with a colour theme and glass panels."
+   },
+   "npm": "@acme/dsh-theme-pack",
+   "version": "1.0.0",
+   "stars": 900,
+   "downloads": 9000,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "fs-write"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-theme-pack",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-secret-vault",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-secret-vault",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-secret-vault/",
+   "category": "security",
+   "description": {
+    "en": "Keep secrets and credentials in a vault and inject environment values."
+   },
+   "npm": "@acme/dsh-secret-vault",
+   "version": "1.0.0",
+   "stars": 40,
+   "downloads": 700,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "credentials",
+    "env",
+    "network"
+   ],
+   "capabilityRedLines": [
+    "reads credentials/secrets AND has network access"
+   ],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-secret-vault",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-observability",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-observability",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-observability/",
+   "category": "dev",
+   "description": {
+    "en": "Monitor runs with metrics, traces, health checks and dashboards."
+   },
+   "npm": "@acme/dsh-observability",
+   "version": "1.0.0",
+   "stars": 60,
+   "downloads": 1500,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-observability",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-notify-hub",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-notify-hub",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-notify-hub/",
+   "category": "notify",
+   "description": {
+    "en": "Notify people on Slack, Telegram or any webhook when work finishes."
+   },
+   "npm": "@acme/dsh-notify-hub",
+   "version": "1.0.0",
+   "stars": 200,
+   "downloads": 5200,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-notify-hub",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-ssh-remote",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-ssh-remote",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-ssh-remote/",
+   "category": "remote",
+   "description": {
+    "en": "Reach a machine over ssh and drive a remote terminal."
+   },
+   "npm": "@acme/dsh-ssh-remote",
+   "version": "1.0.0",
+   "stars": 30,
+   "downloads": 600,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "shell",
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-ssh-remote",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-cron-scheduler",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-cron-scheduler",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-cron-scheduler/",
+   "category": "workflow",
+   "description": {
+    "en": "Schedule recurring work with cron, timers and triggers."
+   },
+   "npm": "@acme/dsh-cron-scheduler",
+   "version": "1.0.0",
+   "stars": 50,
+   "downloads": 1100,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "fs-read"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-cron-scheduler",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-runbook-docs",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-runbook-docs",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-runbook-docs/",
+   "category": "docs",
+   "description": {
+    "en": "Write runbooks, README files and markdown documentation."
+   },
+   "npm": "@acme/dsh-runbook-docs",
+   "version": "1.0.0",
+   "stars": 20,
+   "downloads": 300,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "fs-write"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-runbook-docs",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-web-research",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-web-research",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-web-research/",
+   "category": "browser",
+   "description": {
+    "en": "Search the web, browse pages, follow RSS feeds and capture source material."
+   },
+   "npm": "@acme/dsh-web-research",
+   "version": "1.0.0",
+   "stars": 300,
+   "downloads": 7000,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-web-research",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-writer-editor",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-writer-editor",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-writer-editor/",
+   "category": "docs",
+   "description": {
+    "en": "Draft, rewrite and edit prose, with tone and grammar checks."
+   },
+   "npm": "@acme/dsh-writer-editor",
+   "version": "1.0.0",
+   "stars": 150,
+   "downloads": 3300,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "llm"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-writer-editor",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-image-studio",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-image-studio",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-image-studio/",
+   "category": "vision",
+   "description": {
+    "en": "Read screenshots and images, OCR text, and produce diagrams."
+   },
+   "npm": "@acme/dsh-image-studio",
+   "version": "1.0.0",
+   "stars": 90,
+   "downloads": 2100,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "fs-read",
+    "fs-write",
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-image-studio",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-video-audio",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-video-audio",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-video-audio/",
+   "category": "voice",
+   "description": {
+    "en": "Transcribe audio, synthesise speech and cut video with ffmpeg."
+   },
+   "npm": "@acme/dsh-video-audio",
+   "version": "1.0.0",
+   "stars": 70,
+   "downloads": 1400,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "network",
+    "shell"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-video-audio",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-publish-hub",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-publish-hub",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-publish-hub/",
+   "category": "workflow",
+   "description": {
+    "en": "Publish posts to a blog, YouTube or a newsletter and syndicate them."
+   },
+   "npm": "@acme/dsh-publish-hub",
+   "version": "1.0.0",
+   "stars": 110,
+   "downloads": 2400,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-publish-hub",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-analytics",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-analytics",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-analytics/",
+   "category": "usage",
+   "description": {
+    "en": "Measure traffic, engagement and SEO ranking for published work."
+   },
+   "npm": "@acme/dsh-analytics",
+   "version": "1.0.0",
+   "stars": 45,
+   "downloads": 800,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-analytics",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-memory-index",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-memory-index",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-memory-index/",
+   "category": "memory",
+   "description": {
+    "en": "Keep context and reference material in a searchable memory index with embeddings."
+   },
+   "npm": "@acme/dsh-memory-index",
+   "version": "1.0.0",
+   "stars": 500,
+   "downloads": 12000,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "fs-write"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-memory-index",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-sql-duckdb",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-sql-duckdb",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-sql-duckdb/",
+   "category": "tools",
+   "description": {
+    "en": "Query CSV and parquet data with SQL and chart the result."
+   },
+   "npm": "@acme/dsh-sql-duckdb",
+   "version": "1.0.0",
+   "stars": 65,
+   "downloads": 1300,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "shell",
+    "fs-read"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-sql-duckdb",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-security-scan",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-security-scan",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-security-scan/",
+   "category": "security",
+   "description": {
+    "en": "Scan a repository for vulnerabilities, CVEs and leaked secrets."
+   },
+   "npm": "@acme/dsh-security-scan",
+   "version": "1.0.0",
+   "stars": 55,
+   "downloads": 1200,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "shell",
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-security-scan",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-subagent-team",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-subagent-team",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-subagent-team/",
+   "category": "agi",
+   "description": {
+    "en": "Split work across subagents and bring their results back."
+   },
+   "npm": "@acme/dsh-subagent-team",
+   "version": "1.0.0",
+   "stars": 400,
+   "downloads": 8000,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "subagent"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-subagent-team",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-model-router",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-model-router",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-model-router/",
+   "category": "model",
+   "description": {
+    "en": "Route model calls across providers and track token spend."
+   },
+   "npm": "@acme/dsh-model-router",
+   "version": "1.0.0",
+   "stars": 700,
+   "downloads": 15000,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "llm",
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-model-router",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-session-compact",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-session-compact",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-session-compact/",
+   "category": "session",
+   "description": {
+    "en": "Compact and resume sessions so context windows stay affordable."
+   },
+   "npm": "@acme/dsh-session-compact",
+   "version": "1.0.0",
+   "stars": 35,
+   "downloads": 500,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "fs-read"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-session-compact",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-ui-widgets",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-ui-widgets",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-ui-widgets/",
+   "category": "ui",
+   "description": {
+    "en": "Add interface widgets and panels to the composer."
+   },
+   "npm": "@acme/dsh-ui-widgets",
+   "version": "1.0.0",
+   "stars": 250,
+   "downloads": 6000,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "fs-write"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-ui-widgets",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-release-ship",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-release-ship",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-release-ship/",
+   "category": "dev",
+   "description": {
+    "en": "Deploy a release, roll it out and roll it back."
+   },
+   "npm": "@acme/dsh-release-ship",
+   "version": "1.0.0",
+   "stars": 25,
+   "downloads": 400,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "shell",
+    "network"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-release-ship",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-personal-notes",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-personal-notes",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-personal-notes/",
+   "category": "docs",
+   "description": {
+    "en": "Keep personal notes and a knowledge base in one place."
+   },
+   "npm": "@acme/dsh-personal-notes",
+   "version": "1.0.0",
+   "stars": 10,
+   "downloads": 120,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "fs-write"
+   ],
+   "capabilityRedLines": [],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-personal-notes",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "acme/dsh-install-hook",
+   "owner": "acme",
+   "url": "https://github.com/acme/dsh-install-hook",
+   "page": "https://awesome-dsh-plugin.com/p/acme/dsh-install-hook/",
+   "category": "dev",
+   "description": {
+    "en": "Build a container at install time with a postinstall hook."
+   },
+   "npm": "@acme/dsh-install-hook",
+   "version": "1.0.0",
+   "stars": 3,
+   "downloads": 40,
+   "downloadsStart": "2026-09-04",
+   "downloadsEnd": "2026-10-03",
+   "downloadsCheckedAt": "2026-10-04",
+   "capabilities": [
+    "shell"
+   ],
+   "capabilityRedLines": [
+    "runs code at install time (postinstall)"
+   ],
+   "capabilityCheckedAt": "2026-10-04T04:07:06.747Z",
+   "install": "dsh plugin --profile web add @acme/dsh-install-hook",
+   "added": "2026-09-20"
+  },
+  {
+   "name": "broken/no-url-entry"
+  }
+ ]
+}
